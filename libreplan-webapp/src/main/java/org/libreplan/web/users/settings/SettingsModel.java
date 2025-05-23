@@ -89,7 +89,7 @@ public class SettingsModel implements ISettingsModel {
     @Override
     @Transactional(readOnly = true)
     public void initEditLoggedUser() {
-        User user = findByLoginUser(SecurityUtils.getSessionUserLoginName()); // &line[getSessionUserLoginName]
+        User user = findByLoginUser(SecurityUtils.getSessionUserLoginName()); // &line[User_Session]
         this.user = getFromDB(user);
         loadAllLabels();
         loadAllCriteria();

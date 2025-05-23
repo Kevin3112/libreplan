@@ -230,7 +230,7 @@ public class OrderModel extends IntegrationEntityModel implements IOrderModel {
     public List<Order> getOrders() {
         getLabelsOnConversation().reattachLabels();
         List<Order> orders = orderDAO.getOrdersByReadAuthorizationByScenario(
-                SecurityUtils.getSessionUserLoginName(), // &line[getSessionUserLoginName]
+                SecurityUtils.getSessionUserLoginName(), // &line[User_Session]
                 scenarioManager.getCurrent());
 
         initializeOrders(orders);
@@ -255,7 +255,7 @@ public class OrderModel extends IntegrationEntityModel implements IOrderModel {
         getLabelsOnConversation().reattachLabels();
         List<Order> orders = orderDAO
                 .getOrdersByReadAuthorizationBetweenDatesByLabelsCriteriaCustomerAndState(
-                        SecurityUtils.getSessionUserLoginName(), // &line[getSessionUserLoginName]
+                        SecurityUtils.getSessionUserLoginName(), // &line[User_Session]
                         scenarioManager.getCurrent(), startDate, endDate,
                         labels, criteria, customer, state, excludeFinishedProject);
 
@@ -990,7 +990,7 @@ public class OrderModel extends IntegrationEntityModel implements IOrderModel {
         User user;
         try {
             user = this.userDAO.findByLoginName(SecurityUtils
-                    .getSessionUserLoginName()); // &line[getSessionUserLoginName]
+                    .getSessionUserLoginName()); // &line[User_Session]
         } catch (InstanceNotFoundException e) {
             throw new RuntimeException(e);
         }

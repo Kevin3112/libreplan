@@ -1045,7 +1045,7 @@ public class ResourceLoadController implements Composer {
             TaskElement task = (TaskElement) taskLine.getRole().getEntity();
             Order order = resourceLoadModel.getOrderByTask(task);
 
-            if ( resourceLoadModel.userCanRead(order, SecurityUtils.getSessionUserLoginName()) ) { // &line[getSessionUserLoginName]
+            if ( resourceLoadModel.userCanRead(order, SecurityUtils.getSessionUserLoginName()) ) { // &line[User_Session]
                 if ( order.isScheduled() ) {
                     planningControllerEntryPoints.goToTaskResourceAllocation(order, task);
                 } else {

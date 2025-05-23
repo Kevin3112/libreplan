@@ -273,7 +273,7 @@ public class OrderCostsPerResourceModel implements IOrderCostsPerResourceModel {
 
     private void loadAllOrders() {
         this.allOrders = orderDAO.getOrdersByReadAuthorizationByScenario(
-                SecurityUtils.getSessionUserLoginName(), // &line[getSessionUserLoginName]
+                SecurityUtils.getSessionUserLoginName(), // &line[User_Session]
                 scenarioManager.getCurrent());
 
         Collections.sort(this.allOrders);

@@ -89,7 +89,7 @@ public class ProjectStatusReportModel implements IProjectStatusReportModel {
     @Transactional(readOnly = true)
     public List<Order> getOrders() {
         List<Order> result = orderDAO.getOrdersByReadAuthorizationByScenario(
-                SecurityUtils.getSessionUserLoginName(), // &line[getSessionUserLoginName]
+                SecurityUtils.getSessionUserLoginName(), // &line[User_Session]
                 scenarioManager.getCurrent());
         Collections.sort(result);
         return result;

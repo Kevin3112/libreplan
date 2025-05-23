@@ -89,7 +89,7 @@ public class SchedulingProgressPerOrderModel implements ISchedulingProgressPerOr
 
     private void loadAllOrders() {
         allOrders = orderDAO.getOrdersByReadAuthorizationByScenario(
-                SecurityUtils.getSessionUserLoginName(), // &line[getSessionUserLoginName]
+                SecurityUtils.getSessionUserLoginName(), // &line[User_Session]
                 scenarioManager.getCurrent());
 
         Collections.sort(allOrders);

@@ -36,7 +36,7 @@ import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
+// &begin[Password]
 /**
  * Model for UI operations related to user password
  *
@@ -109,7 +109,7 @@ public class PasswordModel implements IPasswordModel {
     @Override
     @Transactional(readOnly = true)
     public void initEditLoggedUser() {
-        User user = findByLoginUser(SecurityUtils.getSessionUserLoginName()); // &line[getSessionUserLoginName]
+        User user = findByLoginUser(SecurityUtils.getSessionUserLoginName()); // &line[User_Session]
         this.user = getFromDB(user);
     }
 
@@ -139,22 +139,21 @@ public class PasswordModel implements IPasswordModel {
     }
 
     @Override
-            // &begin[validateCurrentPassword]
     public boolean validateCurrentPassword(String value)
-    {   // &line[encodePassword]
-        String currentPasswordEncoded = dbPasswordEncoderService.encodePassword((String)value, user.getLoginName()); // &line[getLoginName]
-        if(!(currentPasswordEncoded).equals(user.getPassword())) {  // &line[getPassword]
+    {
+        String currentPasswordEncoded = dbPasswordEncoderService.encodePassword((String)value, user.getLoginName()); // &line[User]
+        if(!(currentPasswordEncoded).equals(user.getPassword())) {
             return false;
         }
         return true;
     }
-    // &end[validateCurrentPassword]
+    // &begin[LDAP_Authentication]
     @Transactional(readOnly = true)
     @Override
-            // &begin[isLdapAuthEnabled]
     public boolean isLdapAuthEnabled() {
         return configurationDAO.getConfiguration().getLdapConfiguration()
-                .getLdapAuthEnabled();  // &line[getLdapAuthEnabled]
+                .getLdapAuthEnabled();
     }
-    // &end[isLdapAuthEnabled]
+    // &end[LDAP_Authentication]
 }
+// &end[Password]

@@ -28,6 +28,7 @@ import org.springframework.security.authentication.encoding.PasswordEncoder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 
+// &begin[Password]
 /**
  * For maximum flexibility, the implementation uses the password encoder and the salt source
  * configured in the Spring Security configuration file
@@ -39,26 +40,23 @@ import org.springframework.security.core.userdetails.UserDetails;
  *
  * @author Fernando Bellas Permuy <fbellas@udc.es>
  */
-
-// &begin[DBPasswordEncoderService]
 public class DBPasswordEncoderService implements IDBPasswordEncoderService {
 
-    private SaltSource saltSource;
+    private SaltSource saltSource; // &line[Salting] 
     // TODO resolve deprecated
     private PasswordEncoder passwordEncoder; // &line[PasswordEncoder]
 
-    // &begin[setSaltSource]
+    // &begin[Salting]
     public void setSaltSource(SaltSource saltSource) {
-        this.saltSource = saltSource;  // &line[saltSource]
+        this.saltSource = saltSource;
     }
-    // &end[setSaltSource]
+    // &end[Salting]
 
     // TODO resolve deprecated
-// &begin[setPasswordEncoder]
+// &begin[Password]
     public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
         this.passwordEncoder = passwordEncoder;
     }
-    // &end[setPasswordEncoder]
 
     @Override
     /**
@@ -66,8 +64,6 @@ public class DBPasswordEncoderService implements IDBPasswordEncoderService {
      * configured salt source is <code>ReflectionSaltSource</code>
      * (which must be configured to use "username" property as a salt).
      */
-
-            // &begin[encodePassword]
     public String encodePassword(String clearPassword, String loginName) {
 
         /*
@@ -77,16 +73,16 @@ public class DBPasswordEncoderService implements IDBPasswordEncoderService {
          * the "user" passed as a parameter to "saltSource.getSalt"
          */
         UserDetails userDetails = new User(loginName, clearPassword, true, true, true, true, Collections.emptyList());
-
+        // &begin[Salting]
         Object salt = null;
-
-        if ( saltSource != null ) {
-            salt = saltSource.getSalt(userDetails);  // &line[getSalt]
+        
+        if (saltSource != null) {
+            salt = saltSource.getSalt(userDetails);
         }
+        // &end[Salting]
 
-        return passwordEncoder.encodePassword(clearPassword, salt); // &line[PasswordEncoder]
+        return passwordEncoder.encodePassword(clearPassword, salt);
 
     }
-// &end[encodePassword]
 }
-// &end[DBPasswordEncoderService]
+// &end[Password]

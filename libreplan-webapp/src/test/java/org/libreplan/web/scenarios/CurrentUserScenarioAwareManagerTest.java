@@ -96,15 +96,13 @@ public class CurrentUserScenarioAwareManagerTest {
         return result;
     }
 
-    // &begin[givenUserAuthenticatedWith]
     private Scenario givenUserAuthenticatedWith(Scenario customScenario) {
-        SecurityContext context = SecurityContextHolder.getContext(); // &line[getContext]
+        SecurityContext context = SecurityContextHolder.getContext();
         CustomUser user = createUserWithScenario(customScenario);
         Authentication authentication = stubAuthenticationWithPrincipal(user);
         context.setAuthentication(authentication);
         return customScenario;
     }
-    // &end[givenUserAuthenticatedWith]
 
 
     private CustomUser createUserWithScenario(Scenario customScenario) {

@@ -66,7 +66,7 @@ public class IntegrationEntityDAO<E extends IntegrationEntity>
             throw new InstanceNotFoundException(null, getEntityClass().getName());
         }
 
-        E entity = (E) getSession() // &line[getSession]
+        E entity = (E) getSession() // &line[Database_Session]
                 .createCriteria(getEntityClass())
                 .add(Restrictions.eq("code", code.trim()).ignoreCase())
                 .uniqueResult();

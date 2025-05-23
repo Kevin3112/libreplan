@@ -175,7 +175,7 @@ public class GatheredUsageStats {
 
         // Make hash of ip + hostname
         try {WebAuthenticationDetails details =
-                (WebAuthenticationDetails) SecurityContextHolder.getContext().getAuthentication().getDetails(); // &line[getAuthentication]
+                (WebAuthenticationDetails) SecurityContextHolder.getContext().getAuthentication().getDetails(); // &line[User]
 
          ip = details.getRemoteAddress();
             Execution execution = Executions.getCurrent();
@@ -190,14 +190,15 @@ public class GatheredUsageStats {
             }
         }
 
+        // &begin[MD5_Hashing]
         String message = ip + hostname;
         byte[] encoded;
         StringBuilder sb = null;
 
         try {
             byte[] bytesOfMessage = message.getBytes("UTF-8");
-            MessageDigest md5 = MessageDigest.getInstance("MD5"); // &line[CryptographicHashing_getInstance_L]
-            encoded = md5.digest(bytesOfMessage); // &line[CryptographicHashing_digest_L]
+            MessageDigest md5 = MessageDigest.getInstance("MD5");
+            encoded = md5.digest(bytesOfMessage);
 
             // Convert bytes to hex format
             sb = new StringBuilder();
@@ -207,6 +208,7 @@ public class GatheredUsageStats {
 
         } catch (NoSuchAlgorithmException | UnsupportedEncodingException ignored) {
         }
+        // &end[MD5_Hashing]
 
         return sb.toString();
     }

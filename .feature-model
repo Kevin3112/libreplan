@@ -1,63 +1,87 @@
-Security_Features_Library
+Security_Features
     Access_Control
-          Authentication
-            getAuthentication
-            getContext
-            PasswordEncoder
+		Authentication
+            LDAP_Authentication
+            Role_Management
+			Credentials
+			    Password
+			    User
+			One_Time_Password
+			Certificate_Authentication
+			Multifactor_Authentication
+			Single_Sign_On
+		Authorization
+
+		    User_Based_Authorization
+			Access_Quota_Limitation
+			Attribute_based_Access_Control
+			Discretionary_Access_Control
+			Mandatory_Access_Control
+			Lattice_based_Access_Control
+			Location_based_Access_Control
+			Role_based_Access_Control
+			    Permission_Check
+			    Role_Check
+			Rule_based_Access_Control
+			Timed_Access_Control
+			State_based_Access_Control
+			Application_Mode_based_Access_Control
+	Cryptography
+		Encryption
+			Stream_Ciphers
+			Block_Ciphers
+			Symmetric_Key_Cryptography
+			Asymmetric_Key_Cryptography
+			Hybrid_Cryptosystems
+		Cryptographic_Hashing
+	        MD5_Hashing
+	        Salting
+		Key_Management
+			Key_Generation
+			Key_Distribution
+			Group_Key_Management
+			Key_Storage
+			Key_Revocation
+		Signature
+			Message_Signing
+			Certification
+                NaiveTrustProvider
+			    X509_Certification
+			Message_Authentication
+			Digital_Watermarking
+		Steganography
+    Security_Monitoring
+		Logging
+		Automated_Response
+		History_Maintenance
     Secure_Data_Handling
-          Data_Validation
-            buildDefaultValidatorFactory
-            getValidator
-          State_Synchronization
-            AtomicReference
-
-    Security_Features_Library_Tool
-        Access_Control
-              Authorization
-                AccessControl_doPrivileged_L
-        Cryptography
-              Hashing
-                CryptographicHashing_digest_L
-                CryptographicHashing_getInstance_L
-
-
-
-Security_Features_Custom
-    Access_Control
-          Authentication
-            saveChangedDefaultPassword
-            getAuthentication_Custom
-            givenUserAuthenticatedWith
-            getLoggedUser
-            getLoginName
-            validateCurrentPassword
-            encodePassword
-            setPasswordEncoder
-            getPassword
-            isLdapAuthEnabled
-            DBPasswordEncoderService
-            checkClientTrusted
-            checkServerTrusted
-            getAcceptedIssuers_X509Certificate
-            getLdapAuthEnabled
-          Authorization
-            setupOrderAuthorizationController
-            initOrderAuthorizations
-            loggedUserCanWrite
-            setAlwaysTrust
-            NaiveTrustProvider
-            engineGetTrustManagers
-    Cryptography
-          Hashing
-            hashCode
-    Secure_Data_Handling
-          Trusted_Sources
-            setSaltSource
-            saltSource
-            getSalt
+		Data_Validation
+			Input_Validation
+			    Validator
+				Blacklisting
+				Whitelisting
+				Download_Verification
+			Output_Validation
+		Data_Sanitization
+			Input_Sanitization
+			Output_Sanitization
+			Parameterized_Prepared_Statement
+		Retention_Control
+		Secure_Storage
+		Trusted_Sources
+			Time_Source
+			Source_of_Randomness
     System_State_Protection
-          Session_Management
-            getSession
-            getSessionUserLoginName
-
-
+		Resource_Management
+		System_State_Validation
+		Session_Management
+		    Session_Termination
+		    User_Session
+		    Database_Session
+			Replay_Attack_Prevention
+			Session_Fixation_Protection
+			Session_Takeover_Prevention
+			Session_Timeout
+		State_Synchronization
+            AtomicReference
+    Miscellaneous

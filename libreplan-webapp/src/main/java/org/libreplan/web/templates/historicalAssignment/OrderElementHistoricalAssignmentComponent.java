@@ -184,7 +184,7 @@ public class OrderElementHistoricalAssignmentComponent extends HtmlMacroComponen
 
     private Object getBean(String classname) {
         HttpServletRequest servletRequest = (HttpServletRequest) Executions.getCurrent().getNativeRequest();
-        ServletContext servletContext = servletRequest.getSession().getServletContext(); // &line[getSession]
+        ServletContext servletContext = servletRequest.getSession().getServletContext(); // &line[User_Session]
         WebApplicationContext webApplicationContext = WebApplicationContextUtils.getWebApplicationContext(servletContext);
 
         return webApplicationContext.getBean(classname);

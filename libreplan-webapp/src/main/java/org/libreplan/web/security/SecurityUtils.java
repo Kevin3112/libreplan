@@ -81,7 +81,7 @@ public final class SecurityUtils {
         }
         return false;
     }
-    // &begin[getSessionUserLoginName]
+    // &begin[User_Session]
     public static String getSessionUserLoginName() {
         HttpServletRequest request = (HttpServletRequest)Executions.getCurrent().getNativeRequest();
         Principal principal = request.getUserPrincipal();
@@ -91,14 +91,14 @@ public final class SecurityUtils {
         }
         return principal.getName();
     }
-// &end[getSessionUserLoginName]
+// &end[User_Session]
     /**
      * @return <code>null</code> if not user is logged
      */
 
-    // &begin[getLoggedUser]
+    // &begin[User]
     public static CustomUser getLoggedUser() {
-        Authentication authentication = getAuthentication(); // &line[getAuthentication_Custom]
+        Authentication authentication = getAuthentication();
         if (authentication == null) {
             // This happens before processing first element of login page
             return null;
@@ -109,12 +109,10 @@ public final class SecurityUtils {
         }
         return null;
     }
-    // &end[getLoggedUser]
-    // &begin[getAuthentication_Custom]
     private static Authentication getAuthentication() {
-        return SecurityContextHolder.getContext().getAuthentication(); // &line[getAuthentication]
+        return SecurityContextHolder.getContext().getAuthentication();
     }
-    // &end[getAuthentication_Custom]
+    // &end[User]
 
     /**
      * Returns <code>true</code> if current user:
@@ -156,8 +154,9 @@ public final class SecurityUtils {
                     }
                 });
     }
-    // &begin[loggedUserCanWrite]
+    // &begin[Permission_Check]
     public static boolean loggedUserCanWrite(Order order) {
+        // &begin[Role_Check]
         if (isSuperuserOrUserInRoles(UserRole.ROLE_EDIT_ALL_PROJECTS)) {
             return true;
         }
@@ -165,10 +164,12 @@ public final class SecurityUtils {
         if (order.isNewObject() && isSuperuserOrUserInRoles(UserRole.ROLE_CREATE_PROJECTS)) {
             return true;
         }
+        // &end[Role_Check]
 
+        // &begin[User]
         User user;
         try {
-            CustomUser loggedUser = getLoggedUser(); // &line[getLoggedUser]
+            CustomUser loggedUser = getLoggedUser();
             if (loggedUser == null) {
                 return false;
             }
@@ -177,6 +178,7 @@ public final class SecurityUtils {
             Log.warn("Logged user not found in database", e);
             return false;
         }
+        // &end[User]
 
         List<OrderAuthorization> orderAuthorizations =
                 Registry.getOrderAuthorizationDAO().listByOrderUserAndItsProfiles(order, user);
@@ -188,6 +190,6 @@ public final class SecurityUtils {
         }
         return false;
     }
-    // &end[loggedUserCanWrite]
+    // &end[Permission_Check]
 
 }

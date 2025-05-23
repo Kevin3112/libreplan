@@ -86,7 +86,7 @@ public class PageForErrorOnEvent extends GenericForwardComposer {
 
     public void onClick$quitSession() {
         HttpServletRequest nativeRequest = (HttpServletRequest) Executions.getCurrent().getNativeRequest();
-        nativeRequest.getSession().invalidate(); // &line[getSession]
+        nativeRequest.getSession().invalidate(); // &line[Session_Termination]
         Executions.sendRedirect("/");
     }
 
